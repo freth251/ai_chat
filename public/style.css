@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #d6d5d5;
+    
+}
+
+.chat-container {
+    width: 70%;
+    height: 95%;
+    padding: 10px;
+
+    background-color: #8a8888;
+    border-radius: 10px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.input-container {
+    display: flex;
+    margin-top: 10px;
+    height: 3%;
+    
+    
+}
+.ai-output {
+    background-color: aquamarine;
+    align-self: flex-end;
+    position: relative;
+    padding: 10px;
+    border-radius: 15px;   /* Gives rounded corners */
+    border: 10px ;
+    width: fit-content;
+    max-width: 300px;  
+    margin-right: 2%;
+}
+.user-output {
+    position: relative;
+    align-self: flex-start;
+    padding: 10px;
+    border-radius: 15px;   /* Gives rounded corners */
+    background-color: #a6de57;
+    border: 10px ;
+    width: fit-content;
+    max-width: 300px;  
+    margin-left: 2%;
+}
+#logo {
+    height: 5%;
+    width: 20%;
+
+    margin-left: 40%;
+    margin-right: 40%;
+    
+
+}
+#avatar {
+    margin-left: 50%;  /* This will create a 2% spacing on the left side of the button */
+}
+#name {
+    margin-left: 45%;
+}
+#chat-output {
+    height: 83%;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #5f5e5e;
+    overflow-y: auto;
+}
+
+#chat-input {
+    border-radius: 10px;
+    width: 96%;
+    padding: 10px;
+    border: solid #514e4e;
+    background-color: #aeabab;
+}
+
+#input-button {
+    background-color: cornflowerblue;
+    border: solid rgb(83, 123, 198);
+    padding: 10px;
+    width: 4%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center; /* This will vertically center the content */
+    justify-content: center; /* This will horizontally center the content, optional if you want text and icon side by side */
+    margin-left: 1%;  /* This will create a 2% spacing on the left side of the button */
+}
+
+.form-container {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+

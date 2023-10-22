@@ -1,0 +1,52 @@
+syntax="proto3";
+
+package user_service;
+
+service Register{
+    rpc Register(RegisterRequest) returns (RegisterResp) {}
+    rpc Login(LoginRequest) returns (LoginResp) {}
+}
+
+message RegisterRequest{
+    string username=1;
+    string email=2;
+    string password=3;
+
+}
+
+message RegisterResp{
+    oneof registerResp{
+        RegisterCfm registerCfm=1;
+        RegisterRej registerRej=2;
+    }
+}
+
+message RegisterCfm{
+    string jwt=1;
+}
+
+message RegisterRej{
+    string error=1;
+}
+
+message LoginRequest{
+    string username=1;
+    string email=2;
+    string password=3;
+
+}
+
+message LoginResp{
+    oneof loginResp{
+        LoginCfm loginCfm=1;
+        LoginRej loginRej=2;
+    }
+}
+
+message LoginCfm{
+    string jwt=1;
+}
+
+message LoginRej{
+    string error=1;
+}
