@@ -1,0 +1,36 @@
+syntax="proto3";
+
+package chat_history_service;
+
+option go_package = "chatbackend/chathistoryservice";
+
+import "google/protobuf/empty.proto";
+
+service ChatHistoryService{
+    rpc LoadChatHistory(LoadChatHistoryReq) returns (LoadChatHistoryResp){}
+    rpc AddChatHistory(AddChatData) returns (google.protobuf.Empty){}
+}
+
+message AddChatData{
+    string jwt=1;
+    string data=2;
+}
+
+message LoadChatHistoryReq{
+    string jwt=1;
+}
+
+message LoadChatHistoryResp{
+    oneof loadChatHistoryResp{
+        LoadChatHistoryCfm loadChatHistoryCfm=1;
+        LoadChatHistoryRej loadChatHistoryRej=2;
+    }
+}
+
+message LoadChatHistoryCfm{
+    repeated string chatHistory=1;
+}
+
+message LoadChatHistoryRej{
+    string error=1;
+}

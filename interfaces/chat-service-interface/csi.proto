@@ -1,0 +1,19 @@
+syntax="proto3";
+
+package chat_service;
+
+option go_package = "chatbackend/chatservice";
+
+service ChatService{
+    rpc Chat(ChatRequest) returns (stream ChatResp){}
+}
+
+message ChatRequest{
+    string jwt=1;
+    string userMessage=2;
+}
+
+message ChatResp{
+
+    string aiResp=1;
+}

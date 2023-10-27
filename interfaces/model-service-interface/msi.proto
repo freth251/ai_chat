@@ -1,0 +1,19 @@
+syntax="proto3";
+
+package model_service;
+
+option go_package = "chatbackend/modelservice";
+
+
+service ModelService{
+    rpc Model(ModelInput) returns (stream ModelOutput){}
+}
+
+message ModelInput{
+    string prompt=1;
+    string model=2;
+}
+
+message ModelOutput{
+    string response=1;
+}

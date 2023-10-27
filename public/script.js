@@ -32,11 +32,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             const data = await response.json();
+            
+
 
             if (response.status === 200) {
-                alert("Registered successfully!");
-                window.location.href = "login.html";
+                localStorage.setItem('token', data.jwt);
+                window.location.href = "index.html";
             } else {
+                console.log(data)
                 alert(data.error || "Registration failed");
             }
         });

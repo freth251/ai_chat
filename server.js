@@ -27,19 +27,11 @@ app.post('/api/chat', async (req, res) => {
     if (typeof bearerHeader !== 'undefined') {
         const bearer = bearerHeader.split(' ');
         const bearerToken = bearer[1];
-        var auth= jwt.verify(bearerToken, secretKey, (err, authData) => {
-            if (err) {
-                console.log("Unauthorized")
-                return ;
-            }
-            return authData
-        });
-        if (!(auth)){
-            return res.status(500).send('Unauthorized');
-        }
+        
     } else {
         return res.status(500).send('Unauthorized');
     }
+
     
     
     const userMessage = req.body.message;
@@ -48,7 +40,6 @@ app.post('/api/chat', async (req, res) => {
         const response = await axios.post('http://127.0.0.1:11434/api/generate', {
             model: 'mistral',
             prompt: userMessage,
-            stream: false
         });
 
         console.log("Returned from model: ", response)
@@ -64,24 +55,21 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 app.post('/register', async (req, res) => {
-    try {
       console.log("received register")
       const { username, email, password } = req.body;
   
-      // Hash the password
-      const hashSalt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, hashSalt);
+      try {
+        const response = await axios.post('http://127.0.0.1:9400/register', {
+            username: username, 
+            email: email,
+            password: password
+        });
         
-      // Store in the database
-      const newUser = await pool.query('INSERT INTO users (username, email, password, hashSalt) VALUES ($1, $2, $3, $4) RETURNING id', [username, email, hashedPassword, hashSalt]);
-  
-      
-      pool.query('INSERT INTO chat_history (user_id) VALUES ($1) RETURNING id', [newUser.rows[0].id])
-      res.json(newUser.rows[0]);
-  
-    } catch (err) {
+        res.json({token: response.data.jwt})
+
+    }catch (err) {
         console.log(err)
-      res.status(500).send('Server error');
+        res.status(500).send('Server error');
     }
 });
   
@@ -89,22 +77,12 @@ app.post('/login', async (req, res) => {
     try {
       console.log("received login")
       const { email, password } = req.body;
-      const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-    
-      if (!user.rows[0]) return res.status(401).send('Invalid credentials');
-      const isValid = await bcrypt.compare(password, user.rows[0].password );
-      if (!isValid) return res.status(401).send('Invalid credentials');
-  
-      // TODO: Create session or JWT
-      const userData = {
-        username: user.rows[0].username,
-        id: user.rows[0].id,
-        email: email,
-        password: password,
-      }
-      const token = jwt.sign(userData, secretKey, {expiresIn: '1h'})
-      res.json({token: token})
-  
+      const response = await axios.post('http://127.0.0.1:9400/login', {
+            email: email,
+            password: password
+        });
+        console.log(response.data)
+        res.json({token: response.data.jwt})
     } catch (err) {
       res.status(500).send('Server error');
     }

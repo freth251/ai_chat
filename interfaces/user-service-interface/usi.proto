@@ -2,6 +2,8 @@ syntax="proto3";
 
 package user_service;
 
+option go_package= "chatbackend/userservice";
+
 service Register{
     rpc Register(RegisterRequest) returns (RegisterResp) {}
     rpc Login(LoginRequest) returns (LoginResp) {}
@@ -30,9 +32,8 @@ message RegisterRej{
 }
 
 message LoginRequest{
-    string username=1;
-    string email=2;
-    string password=3;
+    string email=1;
+    string password=2;
 
 }
 
